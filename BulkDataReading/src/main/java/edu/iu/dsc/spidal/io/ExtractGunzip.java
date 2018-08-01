@@ -75,6 +75,16 @@ public class ExtractGunzip {
         }
     }
 
+    /**
+     * >>> 636301201408/1024/1024/1024
+     * 592
+     * >>> 636301201408/1500000*200000
+     * 84840000000
+     * >>> 84840000000/1024
+     * 82851562
+     * TODO change the range of the file in a randomized way
+     * */
+
     private static void decompressBromberg(String gzipFile, String newFile) {
         try {
             FileInputStream fis = new FileInputStream(gzipFile);
