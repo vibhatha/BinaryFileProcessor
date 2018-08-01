@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+BinaryFileProcessor: BinaryFileProcessor Gradle Build
+Version: 1.0
+

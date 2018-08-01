@@ -1,0 +1,7 @@
+edu/iu/dsc/spidal/poc/ReadFromMemoryMaps.class
+edu/iu/dsc/spidal/io/ReadRandomSample.class
+edu/iu/dsc/spidal/io/ExtractGunzip.class
+edu/iu/dsc/spidal/io/BinFileProcessor.class
+edu/iu/dsc/spidal/poc/Simple.class
+edu/iu/dsc/spidal/poc/SampleBin.class
+edu/iu/dsc/spidal/io/ReadFullSample.class
