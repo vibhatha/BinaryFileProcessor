@@ -84,7 +84,7 @@ public class ExtractGunzip {
             byte[] buffer = new byte[bufSize];
             int len;
             int counter = 0;
-            while((len = gis.read(buffer)) != -1 || counter != 82851562){
+            while((len = gis.read(buffer)) != -1 && counter != 82851562){
                 fos.write(buffer, 0, len);
                 counter++;
             }
