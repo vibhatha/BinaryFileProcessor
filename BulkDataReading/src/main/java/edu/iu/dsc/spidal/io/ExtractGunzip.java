@@ -97,13 +97,13 @@ public class ExtractGunzip {
                 .desc("Extracted Output File : output-sample.txt")
                 .build();
         final Option offsetOpt = Option.builder("offset")
-                .required(false)
+                .required(true)
                 .hasArg()
                 .type(Integer.class)
                 .desc("Starting position of the file, ex: 0 (in byte level)")
                 .build();
         final Option lengthOpt = Option.builder("length")
-                .required(false)
+                .required(true)
                 .hasArg()
                 .type(Integer.class)
                 .desc("Chunk Size to be toText, ex : 2400 (in byte level)")
