@@ -68,6 +68,33 @@ public class ExtractGunzip {
         }
     }
 
+    private static void decompressBromberg(String gzipFile, String newFile) {
+        try {
+            FileInputStream fis = new FileInputStream(gzipFile);
+            GZIPInputStream gis = new GZIPInputStream(fis);
+            FileOutputStream fos = new FileOutputStream(newFile);
+            int bufSize = 1024;
+            byte[] buffer = new byte[1024];
+            long totalLength = 0;
+            long totalSize = 82851562;
+            int initBuf = 0;
+            int cumBufSize = 0;
+            while(totalLength != totalSize){
+                int len = gis.read(buffer, initBuf, bufSize);
+                fos.write(buffer, 0, len);
+                totalLength++;
+                cumBufSize += bufSize;
+                initBuf = cumBufSize + 1;
+            }
+
+            //close resources
+            fos.close();
+            gis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void compress(String file, String gzipFile) {
         try {
             FileInputStream fis = new FileInputStream(file);
@@ -103,13 +130,13 @@ public class ExtractGunzip {
                 .desc("Extracted Output File : output-sample.txt")
                 .build();
         final Option offsetOpt = Option.builder("offset")
-                .required(true)
+                .required(false)
                 .hasArg()
                 .type(Integer.class)
                 .desc("Starting position of the file, ex: 0 (in byte level)")
                 .build();
         final Option lengthOpt = Option.builder("length")
-                .required(true)
+                .required(false)
                 .hasArg()
                 .type(Integer.class)
                 .desc("Chunk Size to be toText, ex : 2400 (in byte level)")
