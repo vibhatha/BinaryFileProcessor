@@ -51,7 +51,7 @@ public class ExtractGunzip {
             FileInputStream fis = new FileInputStream(gzipFile);
             GZIPInputStream gis = new GZIPInputStream(fis);
             FileOutputStream fos = new FileOutputStream(newFile);
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[length-offset];
             int len = gis.read(buffer, offset, length);
             fos.write(buffer, 0, len);
             //close resources
