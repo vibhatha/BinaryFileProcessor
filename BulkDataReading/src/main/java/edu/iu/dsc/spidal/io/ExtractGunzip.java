@@ -54,7 +54,7 @@ public class ExtractGunzip {
             int bufSize = 1024;
             byte[] buffer = new byte[1024];
             int totalLength = 0;
-            while(totalLength == (length - offset)){
+            while(totalLength != (length - offset)){
                 int len = gis.read(buffer, offset, bufSize);
                 fos.write(buffer, 0, len);
                 totalLength += bufSize;
