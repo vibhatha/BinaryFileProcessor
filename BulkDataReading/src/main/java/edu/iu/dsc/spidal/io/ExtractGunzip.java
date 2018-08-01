@@ -14,6 +14,8 @@ public class ExtractGunzip {
     private static String outputFile = "";
     private static int offset = 0;
     private static int length = 0;
+    private static boolean isByteRange = false;
+    private static boolean isBromberg = false;
 
     public static void main(String[] args) throws ParseException {
         Options options = genOpts();
@@ -23,8 +25,13 @@ public class ExtractGunzip {
 
         //decompress(gzipFile, newFile);
 
-        decompressByByteRange(inputGzipFile, outputFile, offset, length);
+        if (isByteRange) {
+            decompressByByteRange(inputGzipFile, outputFile, offset, length);
+        }
 
+        if (isBromberg) {
+            decompressBromberg(inputGzipFile, outputFile);
+        }
     }
 
     private static void decompress(String gzipFile, String newFile) {
@@ -141,12 +148,26 @@ public class ExtractGunzip {
                 .type(Integer.class)
                 .desc("Chunk Size to be toText, ex : 2400 (in byte level)")
                 .build();
+        final Option byteRangeStateOpt = Option.builder("isByteRange")
+                .required(true)
+                .hasArg()
+                .type(Boolean.class)
+                .desc("Byte Range Configuration, ex : true or false")
+                .build();
+        final Option brombergStateOpt = Option.builder("isBromberg")
+                .required(true)
+                .hasArg()
+                .type(Boolean.class)
+                .desc("Bromberg Configuration, ex : true or false")
+                .build();
 
         final Options options = new Options();
         options.addOption(inputGzipFileOpt);
         options.addOption(outputFileOpt);
         options.addOption(offsetOpt);
         options.addOption(lengthOpt);
+        options.addOption(byteRangeStateOpt);
+        options.addOption(brombergStateOpt);
 
         return options;
     }
@@ -165,6 +186,15 @@ public class ExtractGunzip {
             length = Integer.parseInt(commandLine.getOptionValue("length"));
         }
 
-        System.out.println(inputGzipFile + ", " + outputFile +", " + offset + ", " + length);
+        if (commandLine.getOptionValue("isBromberg") != null) {
+            isBromberg = Boolean.parseBoolean(commandLine.getOptionValue("isBromberg"));
+        }
+
+        if (commandLine.getOptionValue("isByteRange") != null) {
+            isByteRange = Boolean.parseBoolean(commandLine.getOptionValue("isByteRange"));
+        }
+
+        System.out.println(inputGzipFile + ", " + outputFile +", " + offset + ", " + length + ", " + isBromberg
+                + ", " + isByteRange);
     }
 }
